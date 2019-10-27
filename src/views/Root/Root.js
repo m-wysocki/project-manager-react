@@ -1,10 +1,11 @@
 import React from 'react';
-import {BrowserRouter} from "react-router-dom";
 import Sidebar from 'components/organisms/Sidebar';
+import GlobalStyle from 'theme/GlobalStyle';
 
 const Root = ()=>(
-  <BrowserRouter>
+  <>
+    <GlobalStyle/>
     <Sidebar />
-  </BrowserRouter>
+  </>
 )
 export default Root;
