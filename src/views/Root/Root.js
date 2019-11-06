@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import Sidebar from 'components/organisms/Sidebar';
+import Sidebar from 'components/organisms/Sidebar/Sidebar';
 import GlobalStyle from 'theme/GlobalStyle';
 import { theme } from 'theme/mainTheme';
 
