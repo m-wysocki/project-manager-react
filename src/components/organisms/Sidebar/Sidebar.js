@@ -10,6 +10,8 @@ const StyledSidebar = styled.div`
   height: 100vh;
   border-right: solid 1px ${({theme}) => theme.colorLightGrey};
   padding: 20px 0;
+  top: 0;
+  left: 0;
 `;
 export default function Sidebar() {
   return (

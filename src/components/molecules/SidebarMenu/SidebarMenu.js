@@ -6,6 +6,7 @@ import tasksIcon from 'assets/images/icons/tasks.svg';
 import usersIcon from 'assets/images/icons/users.svg';
 
 
+
 const StyledWrapper = styled.div`
   padding: 0 5px;
 `;
@@ -15,9 +16,9 @@ const StyledMenuItem = styled(MenuItem)`
 
 const SidebarMenu = () => (
   <StyledWrapper>
-    <StyledMenuItem isActive icon={projectsIcon}>Projects</StyledMenuItem>
-    <StyledMenuItem icon={tasksIcon}>Tasks</StyledMenuItem>
-    <StyledMenuItem icon={usersIcon}>Users</StyledMenuItem>
+    <StyledMenuItem slug='/projects' icon={projectsIcon}>Projects</StyledMenuItem>
+    <StyledMenuItem slug='/tasks' icon={tasksIcon}>Tasks</StyledMenuItem>
+    <StyledMenuItem slug='/users' icon={usersIcon}>Users</StyledMenuItem>
   </StyledWrapper>
 );
 export default SidebarMenu;

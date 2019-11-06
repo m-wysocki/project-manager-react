@@ -1,8 +1,9 @@
 import React from 'react';
 import styled  from 'styled-components';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-const StyledMenuItem = styled.a`
+const StyledMenuItem = styled(NavLink)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -29,22 +30,19 @@ const IconWrapper = styled.div`
   margin-right: 15px;
 `;
 
-const MenuItem = ({isActive, icon, children})=>(
-  <StyledMenuItem className={isActive ? 'active' : 'test'}>
+const MenuItem = ({slug, icon, children})=>(
+  <StyledMenuItem to={slug} activeClassName="active">
     <IconWrapper><img src={icon} alt=""/></IconWrapper>
     {children}
   </StyledMenuItem>
 );
 
 MenuItem.propTypes = {
-  isActive: PropTypes.bool,
+  slug: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
   ]).isRequired
-};
-MenuItem.defaultProps = {
-  isActive: false
 };
 export default MenuItem;
