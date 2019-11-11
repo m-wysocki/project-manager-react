@@ -1,7 +1,10 @@
 import React from 'react';
+import ViewHeading from '../../components/organisms/ViewHeading/ViewHeading';
 
 const UsersView = () => (
-  <h1>Users</h1>
+  <>
+    <ViewHeading head="Users" description="Here you can manage your users" />
+  </>
 );
 
 export default UsersView;

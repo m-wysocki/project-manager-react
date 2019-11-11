@@ -9,7 +9,7 @@ import TasksView from '../TasksView/TasksView';
 import UsersView from '../UsersView/UsersView';
 
 const ViewsContainer = styled.div`
-  padding: 0 0 0 260px;
+  padding: 60px 60px 60px 320px;
 `;
 
 const Root = ()=>(

@@ -1,7 +1,12 @@
 import React from 'react';
+import ViewHeading from '../../components/organisms/ViewHeading/ViewHeading';
+import ProjectsList from '../../components/organisms/ProjectsList/ProjectsList';
 
 const ProjectsView = () => (
-  <h1>Projects</h1>
+  <>
+    <ViewHeading head="Projects" description="Here you can manage your projects" />
+    <ProjectsList />
+  </>
 );
 
 export default ProjectsView;
