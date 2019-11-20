@@ -28,7 +28,7 @@ const Head = styled.h2`
   font-size: 24px;
   color: rgba(0, 0, 0, 0.85);
   font-weight: ${({ theme }) => theme.light};
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
   margin-top: 0;
   margin-bottom: 15px;
 `;
