@@ -14,10 +14,10 @@ const Wrapper = styled.div`
   transform: translateX(-50%);
   background: #f8f9fa;
   box-shadow:  0 20px 40px -10px rgba(0,0,0,0.2);
-  width: 75%;
+  width: 50%;
   margin: 0 auto;
   height: auto;
-  padding: 50px 80px;
+  padding: 30px 50px;
   display: flex;
   flex-direction: column;
 `;
@@ -33,10 +33,13 @@ const CloseButton = styled.a`
   justify-content: center;
   align-items: center;
   color: #ffffff;
+  :hover{
+  background-color: #e42323;
+  }
 `;
 const Modal = ({closeModalFn}) => (
   <Wrapper>
-    <CloseButton onClick={closeModalFn} className="btn btn-danger"><FontAwesomeIcon icon={faTimes} /></CloseButton>
+    <CloseButton onClick={closeModalFn}><FontAwesomeIcon icon={faTimes} color="#fff"/></CloseButton>
      <Form/>
   </Wrapper>
 );

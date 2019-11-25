@@ -10,11 +10,11 @@ const GlobalStyle = createGlobalStyle`
   }
   
   html {
-    font-size: 62.5%;
+    font-size: 16px;
   }
   
   body {
-    font-size: 1.6rem;
+    font-size: 1rem;
     font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
@@ -25,5 +25,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
 `;
+
 
 export default GlobalStyle;

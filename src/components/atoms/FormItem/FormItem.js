@@ -1,18 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+import { MDBInput } from "mdbreact";
 import PropTypes from "prop-types";
 
+const StyledInput = styled(MDBInput)`
+  :focus{
+      box-shadow: none !important;
+      border-width: 2px !important;
+  }
+`;
+
 const FormItem = ({name,placeholder,type, maxLength}) => (
-  <div className="form-group">
-    <label htmlFor={name}>{placeholder}</label>
-    <input
-      type={type}
-      className="form-control"
-      name={name} id={name}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      required
-    />
-  </div>
+   <StyledInput name={name} label={placeholder} type={type} maxLength={maxLength} />
 );
 
 FormItem.propTypes = {

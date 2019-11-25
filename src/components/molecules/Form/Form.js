@@ -1,7 +1,10 @@
 import React from 'react';
 // import styles from './Form.module.scss';
+import styled from 'styled-components';
+import { MDBBtn } from "mdbreact";
 import FormItem from "../../atoms/FormItem/FormItem";
 import FormRadio from "../../atoms/FormRadio/FormRadio";
+
 
 const types = {
   project: 'project',
@@ -15,6 +18,19 @@ const descriptions = {
   user: 'smart user'
 }
 
+const RadioWrapper = styled.div`
+display: flex;
+justify-content: flex-start;
+margin-top: 30px;
+`;
+
+const SubmitBtn = styled(MDBBtn)`
+  margin: 15px 0 !important;
+`;
+const Header = styled.h4`
+  font-weight: 400;
+`;
+
 class Form extends React.Component {
   constructor(props){
     super(props);
@@ -25,7 +41,7 @@ class Form extends React.Component {
       goalTime: '',
       maxTime: '',
       taskTime: '',
-      email: '',
+      email: ''
     }
   }
 
@@ -50,8 +66,8 @@ class Form extends React.Component {
             // onSubmit={(e) => context.addItem(e, this.state)}
             // className={styles.addItemForm}
           >
-            <h4>Add {descriptions[typeAddItem]}</h4>
-            <div>
+            <Header>Add {descriptions[typeAddItem]}</Header>
+            <RadioWrapper>
               <FormRadio
                 id={types.project}
                 checked={typeAddItem === types.project}
@@ -69,7 +85,7 @@ class Form extends React.Component {
                 checked={typeAddItem === types.user}
                 changeFn={() => {this.handleRadioButtonChange(types.user)}}
               >User</FormRadio>
-            </div>
+            </RadioWrapper>
             <FormItem
               // onChange={this.handleInputChange}
               value={name}
@@ -124,8 +140,7 @@ class Form extends React.Component {
                 placeholder="E-mail"
               />
               : null}
-
-            <button type="submit" className="btn btn-dark">Submit</button>
+            <SubmitBtn color="primary" type="submit">Add</SubmitBtn>
           </form>
     )
   }

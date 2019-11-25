@@ -9,6 +9,10 @@ import TasksView from '../TasksView/TasksView';
 import UsersView from '../UsersView/UsersView';
 import Modal from '../../components/organisms/Modal/Modal';
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+
 const ViewsContainer = styled.div`
   padding: 60px 60px 60px 320px;
   
