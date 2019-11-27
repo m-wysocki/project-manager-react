@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+import store from 'store';
 import Sidebar from 'components/organisms/Sidebar/Sidebar';
 import GlobalStyle from 'theme/GlobalStyle';
 import { theme } from 'theme/mainTheme';
@@ -51,24 +53,26 @@ class Root extends Component {
   render() {
     const { isModalOpen } = this.state;
     return (
-      <BrowserRouter>
-        <div>
-          <ThemeProvider theme={theme}>
-            <>
-              <GlobalStyle />
-              <Sidebar />
-              <ViewsContainer className={isModalOpen && 'isModalOpen'} onClick={isModalOpen && this.closeModal}>
-                <Switch>
-                  <Route path="/projects" component={() => <ProjectsView openModalFn={this.openModal} />} />
-                  <Route path="/tasks" component={() => <TasksView openModalFn={this.openModal} />} />
-                  <Route path="/users" component={() => <UsersView openModalFn={this.openModal} />} />
-                </Switch>
-              </ViewsContainer>
-              {isModalOpen && <Modal closeModalFn={this.closeModal} />}
-            </>
-          </ThemeProvider>
-        </div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <ThemeProvider theme={theme}>
+              <>
+                <GlobalStyle />
+                <Sidebar />
+                <ViewsContainer className={isModalOpen && 'isModalOpen'} onClick={isModalOpen ? (this.closeModal) : undefined}>
+                  <Switch>
+                    <Route path="/projects" component={() => <ProjectsView openModalFn={this.openModal} />} />
+                    <Route path="/tasks" component={() => <TasksView openModalFn={this.openModal} />} />
+                    <Route path="/users" component={() => <UsersView openModalFn={this.openModal} />} />
+                  </Switch>
+                </ViewsContainer>
+                {isModalOpen && <Modal closeModalFn={this.closeModal} />}
+              </>
+            </ThemeProvider>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

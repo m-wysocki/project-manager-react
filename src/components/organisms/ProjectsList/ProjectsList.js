@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types'
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import ProjectCard from '../../molecules/ProjectCard/ProjectCard';
 
 const StyledProjectsList = styled.div`
@@ -8,12 +10,29 @@ const StyledProjectsList = styled.div`
     margin-bottom: 30px;
   }
 `;
-const ProjectsList = () => (
+const ProjectsList = ({ projects }) => (
   <StyledProjectsList>
-    <ProjectCard logo="https://source.unsplash.com/120x120/?logo+" />
-    <ProjectCard logo="https://source.unsplash.com/130x130/?logo" />
-    <ProjectCard logo="https://source.unsplash.com/200x200/?logo" />
+    {projects.map(({ id, name, type, maxTime, goalTime, currentTime, logo }) => (
+      <ProjectCard
+        key={id}
+        id={id}
+        name={name}
+        type={type}
+        maxTime={maxTime}
+        goalTime={goalTime}
+        currentTime={currentTime}
+        logo={logo}
+      />
+      ))}
   </StyledProjectsList>
 );
 
-export default ProjectsList;
+const mapStateToProps = state => {
+  const { projects } = state;
+  return { projects };
+};
+export default connect(mapStateToProps)(ProjectsList);
+
+ProjectsList.propTypes = {
+  projects: PropTypes.objectOf(PropTypes.object()).isRequired
+}

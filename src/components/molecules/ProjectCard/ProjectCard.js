@@ -38,25 +38,38 @@ const ProjectDetails = styled.div`
   justify-content: flex-start;
 `;
 
-const ProjectCard = ({ logo }) => (
+const ProjectCard = ({ id, name, type, maxTime, goalTime, currentTime, logo }) => (
   <CardWrapper>
     <ProjectLogo>
       <img src={logo} alt="" />
     </ProjectLogo>
     <Content>
-      <Head>Project name</Head>
+      <Head>{name}</Head>
       <ProjectDetails>
-        <ProjectDetail label="Type" value="Onepage" />
-        <ProjectDetail label="Max time" value="155h" />
-        <ProjectDetail label="Goal time" value="120h" />
-        <ProjectDetail label="Current time" value="20h 35min" />
+        <ProjectDetail label="ID" value={id} />
+        <ProjectDetail label="Type" value={type}/>
+        <ProjectDetail label="Max time" value={maxTime} />
+        <ProjectDetail label="Goal time" value={goalTime}/>
+        <ProjectDetail label="Current time" value={currentTime}  />
       </ProjectDetails>
     </Content>
   </CardWrapper>
 );
 
-ProjectCard.propTypes = {
-  logo: PropTypes.string.isRequired,
-};
-
 export default ProjectCard;
+
+ProjectCard.propTypes = {
+  currentTime: PropTypes.string,
+  goalTime: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  maxTime: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+}
+
+ProjectCard.defaultProps = {
+  currentTime: 0,
+  goalTime: 0,
+  maxTime: 0
+}
