@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -34,5 +34,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(ProjectsList);
 
 ProjectsList.propTypes = {
-  projects: PropTypes.objectOf(PropTypes.object()).isRequired
+  projects: PropTypes.objectOf(PropTypes.object).isRequired
 }
