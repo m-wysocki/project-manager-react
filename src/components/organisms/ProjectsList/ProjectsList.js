@@ -34,5 +34,8 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(ProjectsList);
 
 ProjectsList.propTypes = {
-  projects: PropTypes.objectOf(PropTypes.object).isRequired
+  projects: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired
 }

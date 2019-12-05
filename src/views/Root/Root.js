@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import store from 'store';
 import Sidebar from 'components/organisms/Sidebar/Sidebar';
-import GlobalStyle from 'theme/GlobalStyle';
-import { theme } from 'theme/mainTheme';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import MainTemplate from '../../templates/MainTemplate';
 import ProjectsView from '../ProjectsView/ProjectsView';
 import TasksView from '../TasksView/TasksView';
 import UsersView from '../UsersView/UsersView';
 import Modal from '../../components/organisms/Modal/Modal';
 
+
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+
 
 const ViewsContainer = styled.div`
   padding: 60px 60px 60px 320px;
@@ -34,7 +35,7 @@ class Root extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isModalOpen: true,
+      isModalOpen: false,
     };
   }
 
@@ -55,10 +56,7 @@ class Root extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div>
-            <ThemeProvider theme={theme}>
-              <>
-                <GlobalStyle />
+          <MainTemplate>
                 <Sidebar />
                 <ViewsContainer className={isModalOpen && 'isModalOpen'} onClick={isModalOpen ? (this.closeModal) : undefined}>
                   <Switch>
@@ -68,9 +66,7 @@ class Root extends Component {
                   </Switch>
                 </ViewsContainer>
                 {isModalOpen && <Modal closeModalFn={this.closeModal} />}
-              </>
-            </ThemeProvider>
-          </div>
+          </MainTemplate>
         </BrowserRouter>
       </Provider>
     );
