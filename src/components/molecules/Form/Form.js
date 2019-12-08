@@ -1,21 +1,22 @@
+import PropTypes from 'prop-types'
 import React from 'react';
 // import styles from './Form.module.scss';
 import styled from 'styled-components';
 import { MDBBtn } from "mdbreact";
 import FormItem from "../../atoms/FormItem/FormItem";
 import FormRadio from "../../atoms/FormRadio/FormRadio";
-
+import withContext from '../../../hoc/withContext';
 
 const types = {
-  project: 'project',
-  task: 'task',
-  user: 'user'
+  projects: 'projects',
+  tasks: 'tasks',
+  users: 'users'
 }
 
 const descriptions = {
-  project: 'super project',
-  task: 'difficult task',
-  user: 'smart user'
+  projects: 'super project',
+  tasks: 'difficult task',
+  users: 'smart user'
 }
 
 const RadioWrapper = styled.div`
@@ -35,7 +36,7 @@ class Form extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      typeAddItem: types.project,
+      typeAddItem: props.pageContext,
       name: '',
       type: '',
       goalTime: '',
@@ -69,21 +70,21 @@ class Form extends React.Component {
             <Header>Add {descriptions[typeAddItem]}</Header>
             <RadioWrapper>
               <FormRadio
-                id={types.project}
-                checked={typeAddItem === types.project}
-                changeFn={() => {this.handleRadioButtonChange(types.project)}}
+                id={types.projects}
+                checked={typeAddItem === types.projects}
+                changeFn={() => {this.handleRadioButtonChange(types.projects)}}
               >Project</FormRadio>
 
               <FormRadio
-                id={types.task}
-                checked={typeAddItem === types.task}
-                changeFn={() => {this.handleRadioButtonChange(types.task)}}
+                id={types.tasks}
+                checked={typeAddItem === types.tasks}
+                changeFn={() => {this.handleRadioButtonChange(types.tasks)}}
               >Task</FormRadio>
 
               <FormRadio
-                id={types.user}
-                checked={typeAddItem === types.user}
-                changeFn={() => {this.handleRadioButtonChange(types.user)}}
+                id={types.users}
+                checked={typeAddItem === types.users}
+                changeFn={() => {this.handleRadioButtonChange(types.users)}}
               >User</FormRadio>
             </RadioWrapper>
             <FormItem
@@ -94,7 +95,7 @@ class Form extends React.Component {
               placeholder="Name"
               required
             />
-            {typeAddItem === types.project ?
+            {typeAddItem === types.projects ?
               <>
                 <FormItem
                   onChange={this.handleInputChange}
@@ -121,7 +122,7 @@ class Form extends React.Component {
                 />
               </>
               : null}
-            {typeAddItem === types.task ?
+            {typeAddItem === types.tasks ?
               <FormItem
                 onChange={this.handleInputChange}
                 value={taskTime}
@@ -131,7 +132,7 @@ class Form extends React.Component {
                 required
               />
               : null}
-            {typeAddItem === types.user ?
+            {typeAddItem === types.users ?
               <FormItem
                 onChange={this.handleInputChange}
                 value={email}
@@ -148,4 +149,12 @@ class Form extends React.Component {
 
 
 
-export default Form;
+export default withContext(Form);
+
+Form.propTypes = {
+  pageContext: PropTypes.oneOf(['projects','tasks','users'])
+}
+
+Form.defaultProps = {
+  pageContext: 'projects'
+}

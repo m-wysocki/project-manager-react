@@ -39,7 +39,7 @@ const CloseButton = styled.a`
 `;
 const Modal = ({closeModalFn}) => (
   <Wrapper>
-    <CloseButton onClick={closeModalFn}><FontAwesomeIcon icon={faTimes} color="#fff"/></CloseButton>
+      <CloseButton onClick={closeModalFn}><FontAwesomeIcon icon={faTimes} color="#fff"/></CloseButton>
      <Form/>
   </Wrapper>
 );

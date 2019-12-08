@@ -2,8 +2,9 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyle from 'theme/GlobalStyle';
-import { theme } from 'theme/mainTheme';
+import GlobalStyle from '../theme/GlobalStyle';
+import { theme } from '../theme/mainTheme';
+import PageContext from '../context';
 
 class MainTemplate extends Component {
   constructor(props) {
@@ -26,18 +27,24 @@ class MainTemplate extends Component {
     const {location: {pathname}} = this.props;
     const [currentPage] = pageTypes.filter(page => pathname.includes(page));
 
+
     if(prevState.pageType !== currentPage) {
       this.setState({pageType: currentPage});
-      console.log(this.state);
     }
-  }
+  };
 
   render() {
     const { children } = this.props;
+    const { pageType } = this.state;
+
     return (
       <div>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            {children}
+          </ThemeProvider>
+        </PageContext.Provider>
       </div>
     );
   }
@@ -55,4 +62,4 @@ MainTemplate.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired
-}
+};
