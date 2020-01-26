@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react';
-// import styles from './Form.module.scss';
+// import styles from './FormAddItem.module.scss';
 import styled from 'styled-components';
-import { MDBBtn } from "mdbreact";
-import FormItem from "../../atoms/FormItem/FormItem";
+import { Formik, Form } from 'formik';
+import { MDBBtn, MDBInput } from 'mdbreact';
+import { connect } from 'react-redux';
+// import FormItem from "../../atoms/FormItem/FormItem";
 import FormRadio from "../../atoms/FormRadio/FormRadio";
 import withContext from '../../../hoc/withContext';
+import { addItem as addItemAction} from '../../../actions';
 
 const types = {
   projects: 'projects',
@@ -31,18 +34,18 @@ const SubmitBtn = styled(MDBBtn)`
 const Header = styled.h4`
   font-weight: 400;
 `;
+const StyledInput = styled(MDBInput)`
+  :focus{
+      box-shadow: none !important;
+      border-width: 2px !important;
+  }
+`;
 
-class Form extends React.Component {
+class FormAddItem extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       typeAddItem: props.pageContext,
-      name: '',
-      type: '',
-      goalTime: '',
-      maxTime: '',
-      taskTime: '',
-      email: ''
     }
   }
 
@@ -60,101 +63,161 @@ class Form extends React.Component {
   }
 
   render(){
-    const {typeAddItem, name, type, goalTime, maxTime, taskTime, email} = this.state;
+    const {typeAddItem} = this.state;
+    const {addItem} = this.props;
+
     return(
-          <form
-            autoComplete="off"
-            // onSubmit={(e) => context.addItem(e, this.state)}
-            // className={styles.addItemForm}
-          >
-            <Header>Add {descriptions[typeAddItem]}</Header>
-            <RadioWrapper>
-              <FormRadio
-                id={types.projects}
-                checked={typeAddItem === types.projects}
-                changeFn={() => {this.handleRadioButtonChange(types.projects)}}
-              >Project</FormRadio>
+      <Formik initialValues={{
+        logo: 'https://source.unsplash.com/120x120/?company',
+        avatar: 'https://source.unsplash.com/240x240/?user',
+        name: '',
+        type: '',
+        goalTime: '',
+        maxTime: '',
+        taskTime: '',
+        email: ''
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+        addItem(typeAddItem,values)
+      }}>
+        {({
+            values,
+            handleChange,
+            handleBlur,
+            isSubmitting
+          }) => (
+            <>
+            <div>
+              <Header>Add {descriptions[typeAddItem]}</Header>
+              <RadioWrapper>
+                <FormRadio
+                  id={types.projects}
+                  checked={typeAddItem === types.projects}
+                  changeFn={() => {this.handleRadioButtonChange(types.projects)}}
+                >Project</FormRadio>
 
-              <FormRadio
-                id={types.tasks}
-                checked={typeAddItem === types.tasks}
-                changeFn={() => {this.handleRadioButtonChange(types.tasks)}}
-              >Task</FormRadio>
+                <FormRadio
+                  id={types.tasks}
+                  checked={typeAddItem === types.tasks}
+                  changeFn={() => {this.handleRadioButtonChange(types.tasks)}}
+                >Task</FormRadio>
 
-              <FormRadio
-                id={types.users}
-                checked={typeAddItem === types.users}
-                changeFn={() => {this.handleRadioButtonChange(types.users)}}
-              >User</FormRadio>
-            </RadioWrapper>
-            <FormItem
-              // onChange={this.handleInputChange}
-              value={name}
-              name="name"
-              type="text"
-              placeholder="Name"
-              required
-            />
-            {typeAddItem === types.projects ?
-              <>
-                <FormItem
-                  onChange={this.handleInputChange}
-                  value={type}
-                  name="type"
-                  type="text"
-                  placeholder="Type"
-                />
-                <FormItem
-                  onChange={this.handleInputChange}
-                  value={goalTime}
-                  name="goal_time"
-                  type="text"
-                  placeholder="Goal time" maxLength={4}
-                  required
-                />
-                <FormItem
-                  onChange={this.handleInputChange}
-                  value={maxTime}
-                  name="max_time"
-                  type="text"
-                  placeholder="Max time" maxLength={4}
-                  required
-                />
-              </>
-              : null}
-            {typeAddItem === types.tasks ?
-              <FormItem
-                onChange={this.handleInputChange}
-                value={taskTime}
-                name="task_time"
+                <FormRadio
+                  id={types.users}
+                  checked={typeAddItem === types.users}
+                  changeFn={() => {this.handleRadioButtonChange(types.users)}}
+                >User</FormRadio>
+              </RadioWrapper>
+            </div>
+            <Form>
+              <StyledInput
+                // onChange={this.handleInputChange}
                 type="text"
-                placeholder="Task time" maxLength={4}
-                required
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                label="Name"
               />
-              : null}
-            {typeAddItem === types.users ?
-              <FormItem
-                onChange={this.handleInputChange}
-                value={email}
-                name="email"
-                type="email"
-                placeholder="E-mail"
-              />
-              : null}
-            <SubmitBtn color="primary" type="submit">Add</SubmitBtn>
-          </form>
+              {typeAddItem === types.projects ?
+                <>
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.logo}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="logo"
+                    type="text"
+                    label="Logo"
+                  />
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.type}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="type"
+                    type="text"
+                    label="Type"
+                  />
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.goalTime}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="goalTime"
+                    type="text"
+                    label="Goal time" maxLength={4}
+                  />
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.maxTime}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="maxTime"
+                    type="text"
+                    label="Max time" maxLength={4}
+                  />
+                </>
+                : null}
+              {typeAddItem === types.tasks ?
+                <StyledInput
+                  // onChange={this.handleInputChange}
+                  value={values.taskTime}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="taskTime"
+                  type="text"
+                  label="Task time" maxLength={4}
+                />
+                : null}
+              {typeAddItem === types.users ?
+                <>
+                <StyledInput
+                  // onChange={this.handleInputChange}
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="email"
+                  type="email"
+                  label="E-mail"
+                />
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.avatar}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="avatar"
+                    type="text"
+                    label="Avatar"
+                  />
+                </>
+                : null}
+              <SubmitBtn color="primary" type="submit" disabled={isSubmitting}>
+                Add
+              </SubmitBtn>
+            </Form>
+            </>
+        )}
+      </Formik>
+
     )
   }
+
 }
 
+FormAddItem.propTypes = {
+  pageContext: PropTypes.oneOf(['projects','tasks','users']),
+  addItem: PropTypes.func.isRequired
+};
 
-
-export default withContext(Form);
-
-Form.propTypes = {
-  pageContext: PropTypes.oneOf(['projects','tasks','users'])
-}
-
-Form.defaultProps = {
+FormAddItem.defaultProps = {
   pageContext: 'projects'
-}
+};
+
+const mapDispatchToProps = dispatch => ({
+  addItem: (itemType, id) => dispatch(addItemAction(itemType, id))
+});
+
+
+export default connect(null, mapDispatchToProps)(withContext(FormAddItem));

@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const DetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  margin-right: ${({vertical}) => vertical ? '0' : '50px'};
+  ${({vertical}) => vertical && css`
+    :not(:last-of-type){
+      margin-bottom: 10px;    
+    }
+  `}
 `;
 const Label = styled.h4`
   color: #000;
@@ -20,17 +25,22 @@ const Value = styled.span`
   font-weight: ${({theme}) => theme.light};
 `;
 
-const ProjectDetail = ({label, value}) => (
-  <DetailWrapper>
+const ItemDetail = ({label, value, vertical}) => (
+  <DetailWrapper vertical={vertical}>
     <Label>{label}</Label>
     <Value>{value}</Value>
   </DetailWrapper>
 );
 
-ProjectDetail.propTypes ={
+ItemDetail.propTypes ={
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  vertical: PropTypes.bool
+};
+
+ItemDetail.defaultProps = {
+  vertical: false
 };
 
 
-export default ProjectDetail;
+export default ItemDetail;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {removeItem as removeItemAction} from '../../../actions';
-import ProjectDetail from '../../atoms/ProjectDetail/ProjectDetail';
+import ItemDetail from '../../atoms/ItemDetail/ItemDetail';
 
 const CardWrapper = styled.div`
   position:relative;
@@ -54,7 +54,7 @@ const RemoveItem = styled.a`
   }
 `;
 
-const ProjectCard = ({ id, name, type, maxTime, goalTime, currentTime, logo, removeItem }) => (
+const ProjectCard = ({ id, name, type, maxTime, goalTime, logo, removeItem }) => (
   <CardWrapper>
     <ProjectLogo>
       <img src={logo} alt="" />
@@ -62,11 +62,11 @@ const ProjectCard = ({ id, name, type, maxTime, goalTime, currentTime, logo, rem
     <Content>
       <Head>{name}</Head>
       <ProjectDetails>
-        <ProjectDetail label="ID" value={id} />
-        <ProjectDetail label="Type" value={type}/>
-        <ProjectDetail label="Max time" value={maxTime} />
-        <ProjectDetail label="Goal time" value={goalTime}/>
-        <ProjectDetail label="Current time" value={currentTime}  />
+        <ItemDetail label="ID" value={id} />
+        <ItemDetail label="Type" value={type}/>
+        <ItemDetail label="Max time" value={maxTime} />
+        <ItemDetail label="Goal time" value={goalTime}/>
+        {/* <ProjectDetail label="Current time" value={currentTime}  /> */}
       </ProjectDetails>
       <RemoveItem onClick={() => removeItem('projects', id)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/></svg>
@@ -82,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(null, mapDispatchToProps)(ProjectCard);
 
 ProjectCard.propTypes = {
-  currentTime: PropTypes.string,
+  // currentTime: PropTypes.string,
   goalTime: PropTypes.string,
   id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
@@ -93,7 +93,7 @@ ProjectCard.propTypes = {
 }
 
 ProjectCard.defaultProps = {
-  currentTime: 0,
+  // currentTime: 0,
   goalTime: 0,
   maxTime: 0
 }
