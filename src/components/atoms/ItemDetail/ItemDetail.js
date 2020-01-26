@@ -2,16 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
 
-const DetailWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${({vertical}) => vertical ? '0' : '50px'};
-  ${({vertical}) => vertical && css`
-    :not(:last-of-type){
-      margin-bottom: 10px;    
-    }
-  `}
-`;
 const Label = styled.h4`
   color: #000;
   margin-top: 0;
@@ -24,9 +14,29 @@ const Value = styled.span`
   font-size: 18px;
   font-weight: ${({theme}) => theme.light};
 `;
+const DetailWrapper = styled.div`
+  display: flex;
+  flex-direction: ${({directionRow}) => directionRow ? 'row' : 'column'};
+  margin-right: ${({vertical}) => vertical ? '0' : '50px'};
+  ${({vertical}) => vertical && css`
+    :not(:last-of-type){
+      margin-bottom: 10px;    
+    }
+  `}
+   ${({directionRow}) => directionRow && css`
+      align-items: center;
+      height: 100%;
+      ${Label}{
+        margin-bottom: 0;
+        margin-right: 10px;
+      }
+  `}
+`;
 
-const ItemDetail = ({label, value, vertical}) => (
-  <DetailWrapper vertical={vertical}>
+
+
+const ItemDetail = ({label, value, vertical, directionRow}) => (
+  <DetailWrapper vertical={vertical} directionRow={directionRow}>
     <Label>{label}</Label>
     <Value>{value}</Value>
   </DetailWrapper>
@@ -35,11 +45,13 @@ const ItemDetail = ({label, value, vertical}) => (
 ItemDetail.propTypes ={
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
+  directionRow: PropTypes.bool
 };
 
 ItemDetail.defaultProps = {
-  vertical: false
+  vertical: false,
+  directionRow: false
 };
 
 

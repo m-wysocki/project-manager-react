@@ -32,6 +32,22 @@ const initialState = {
       email: 'user@user.com',
       avatar: 'https://source.unsplash.com/240x240/?user'
     }
+  ],
+  tasks:[
+    {
+      id: '1',
+      name: 'add new feature',
+      projectID: '2',
+      userID: '1',
+      taskTime: '3,5 h'
+    },
+    {
+      id: '2',
+      name: 'update function',
+      projectID: '1',
+      userID: '2',
+      taskTime: '2h'
+    }
   ]
 }
 
