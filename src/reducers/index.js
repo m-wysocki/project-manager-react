@@ -4,8 +4,8 @@ const initialState = {
       id: '1',
       name: 'Nadmorskie klimaty',
       type: 'Onepage',
-      maxTime: '155h',
-      goalTime: '120h',
+      maxTime: 155,
+      goalTime: 120,
       currentTime: '20h 30min',
       logo: "https://source.unsplash.com/120x120/?sea"
     },
@@ -13,8 +13,8 @@ const initialState = {
       id: '2',
       name: 'Górskie wzgórza',
       type: 'Website',
-      maxTime: '205h',
-      goalTime: '180h',
+      maxTime: 205,
+      goalTime: 180,
       currentTime: '20h 30min',
       logo: "https://source.unsplash.com/120x120/?mountain"
     },
@@ -39,14 +39,14 @@ const initialState = {
       name: 'add new feature',
       projectID: '2',
       userID: '1',
-      taskTime: '3,5 h'
+      taskTime: '03:30'
     },
     {
       id: '2',
       name: 'update function',
       projectID: '1',
       userID: '2',
-      taskTime: '2h'
+      taskTime: '02:00'
     }
   ]
 }

@@ -44,7 +44,10 @@ const ItemDetail = ({label, value, vertical, directionRow}) => (
 
 ItemDetail.propTypes ={
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]).isRequired,
   vertical: PropTypes.bool,
   directionRow: PropTypes.bool
 };

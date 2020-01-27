@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react';
-// import styles from './FormAddItem.module.scss';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { MDBBtn, MDBInput } from 'mdbreact';
 import { connect } from 'react-redux';
-// import FormItem from "../../atoms/FormItem/FormItem";
 import FormRadio from "../../atoms/FormRadio/FormRadio";
 import withContext from '../../../hoc/withContext';
 import { addItem as addItemAction} from '../../../actions';
@@ -40,6 +38,10 @@ const StyledInput = styled(MDBInput)`
       border-width: 2px !important;
   }
 `;
+const StyledSelect = styled.select`
+  display: block;
+  width: 100%;
+`;
 
 class FormAddItem extends React.Component {
   constructor(props){
@@ -64,7 +66,7 @@ class FormAddItem extends React.Component {
 
   render(){
     const {typeAddItem} = this.state;
-    const {addItem} = this.props;
+    const {addItem, projects, users} = this.props;
 
     return(
       <Formik initialValues={{
@@ -74,8 +76,10 @@ class FormAddItem extends React.Component {
         type: '',
         goalTime: '',
         maxTime: '',
-        taskTime: '',
-        email: ''
+        taskTime: '00:00',
+        email: '',
+        projectID: '',
+        userID: ''
       }}
       onSubmit={(values) => {
         console.log(values);
@@ -146,8 +150,8 @@ class FormAddItem extends React.Component {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     name="goalTime"
-                    type="text"
-                    label="Goal time" maxLength={4}
+                    type="number"
+                    label="Goal time (hours)" maxLength={4}
                   />
                   <StyledInput
                     // onChange={this.handleInputChange}
@@ -155,21 +159,35 @@ class FormAddItem extends React.Component {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     name="maxTime"
-                    type="text"
-                    label="Max time" maxLength={4}
+                    type="number"
+                    label="Max time (hours)" maxLength={4}
                   />
                 </>
                 : null}
               {typeAddItem === types.tasks ?
-                <StyledInput
-                  // onChange={this.handleInputChange}
-                  value={values.taskTime}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  name="taskTime"
-                  type="text"
-                  label="Task time" maxLength={4}
-                />
+                <>
+                  <StyledInput
+                    // onChange={this.handleInputChange}
+                    value={values.taskTime}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="taskTime"
+                    type="text"
+                    label="Task time" maxLength={5}
+                  />
+                  <StyledSelect name="projectID" type="text" onChange={handleChange} value={values.projectID}>
+                    <option>Project</option>
+                    {projects.map(({id, name})=>(
+                      <option key={id} value={id}>{name}</option>
+                    ))}
+                  </StyledSelect>
+                  <StyledSelect name="userID" type="text" onChange={handleChange} value={values.userID}>
+                    <option>User</option>
+                    {users.map(({id, name})=>(
+                      <option key={id} value={id}>{name}</option>
+                    ))}
+                  </StyledSelect>
+                </>
                 : null}
               {typeAddItem === types.users ?
                 <>
@@ -208,7 +226,9 @@ class FormAddItem extends React.Component {
 
 FormAddItem.propTypes = {
   pageContext: PropTypes.oneOf(['projects','tasks','users']),
-  addItem: PropTypes.func.isRequired
+  addItem: PropTypes.func.isRequired,
+  projects: PropTypes.instanceOf(Array).isRequired,
+  users: PropTypes.instanceOf(Array).isRequired
 };
 
 FormAddItem.defaultProps = {
@@ -219,5 +239,9 @@ const mapDispatchToProps = dispatch => ({
   addItem: (itemType, id) => dispatch(addItemAction(itemType, id))
 });
 
+const mapStateToProps = state => {
+  const { projects, users } = state;
+  return { projects, users };
+};
 
-export default connect(null, mapDispatchToProps)(withContext(FormAddItem));
+export default connect(mapStateToProps, mapDispatchToProps)(withContext(FormAddItem));

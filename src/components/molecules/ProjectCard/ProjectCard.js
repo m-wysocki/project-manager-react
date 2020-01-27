@@ -64,8 +64,8 @@ const ProjectCard = ({ id, name, type, maxTime, goalTime, logo, removeItem }) =>
       <ProjectDetails>
         <ItemDetail label="ID" value={id} />
         <ItemDetail label="Type" value={type}/>
-        <ItemDetail label="Max time" value={maxTime} />
-        <ItemDetail label="Goal time" value={goalTime}/>
+        <ItemDetail label="Max time (hours)" value={maxTime} />
+        <ItemDetail label="Goal time (hours)" value={goalTime}/>
         {/* <ProjectDetail label="Current time" value={currentTime}  /> */}
       </ProjectDetails>
       <RemoveItem onClick={() => removeItem('projects', id)}>
@@ -83,10 +83,10 @@ export default connect(null, mapDispatchToProps)(ProjectCard);
 
 ProjectCard.propTypes = {
   // currentTime: PropTypes.string,
-  goalTime: PropTypes.string,
+  goalTime: PropTypes.number,
   id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
-  maxTime: PropTypes.string,
+  maxTime: PropTypes.number,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   removeItem: PropTypes.func.isRequired,
