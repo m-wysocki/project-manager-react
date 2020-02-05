@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import FormRadio from "../../atoms/FormRadio/FormRadio";
 import withContext from '../../../hoc/withContext';
 import { addItem as addItemAction} from '../../../actions';
+import { Select } from '../../atoms/Select/Select';
 
 const types = {
   projects: 'projects',
@@ -38,7 +39,7 @@ const StyledInput = styled(MDBInput)`
       border-width: 2px !important;
   }
 `;
-const StyledSelect = styled.select`
+const StyledSelect = styled(Select)`
   display: block;
   width: 100%;
 `;
@@ -175,18 +176,23 @@ class FormAddItem extends React.Component {
                     type="text"
                     label="Task time" maxLength={5}
                   />
-                  <StyledSelect name="projectID" type="text" onChange={handleChange} value={values.projectID}>
-                    <option>Project</option>
-                    {projects.map(({id, name})=>(
-                      <option key={id} value={id}>{name}</option>
-                    ))}
-                  </StyledSelect>
-                  <StyledSelect name="userID" type="text" onChange={handleChange} value={values.userID}>
-                    <option>User</option>
-                    {users.map(({id, name})=>(
-                      <option key={id} value={id}>{name}</option>
-                    ))}
-                  </StyledSelect>
+                  <div className="md-form">
+                      <StyledSelect name="projectID" type="text" onChange={handleChange} value={values.projectID}>
+                            <option hidden="true">Choose Project</option>
+                            {projects.map(({id, name})=>(
+                              <option key={id} value={id}>{name}</option>
+                            ))}
+                      </StyledSelect>
+                  </div>
+                    <div className="md-form">
+                        <StyledSelect name="userID" type="text" onChange={handleChange} value={values.userID}>
+                            <option hidden="true">Choose User</option>
+                            {users.map(({id, name})=>(
+                                <option key={id} value={id}>{name}</option>
+                            ))}
+                        </StyledSelect>
+                    </div>
+
                 </>
                 : null}
               {typeAddItem === types.users ?
