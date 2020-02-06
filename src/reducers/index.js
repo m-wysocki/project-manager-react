@@ -6,7 +6,6 @@ const initialState = {
       type: 'Onepage',
       maxTime: 155,
       goalTime: 120,
-      currentTime: '20h 30min',
       logo: "https://source.unsplash.com/120x120/?sea"
     },
     {
@@ -15,7 +14,6 @@ const initialState = {
       type: 'Website',
       maxTime: 205,
       goalTime: 180,
-      currentTime: '20h 30min',
       logo: "https://source.unsplash.com/120x120/?mountain"
     },
   ],
@@ -39,14 +37,14 @@ const initialState = {
       name: 'add new feature',
       projectID: '2',
       userID: '1',
-      taskTime: '03:30'
+      taskTime: '03:50'
     },
     {
       id: '2',
       name: 'update function',
-      projectID: '1',
+      projectID: '2',
       userID: '2',
-      taskTime: '02:00'
+      taskTime: '02:50'
     }
   ]
 }
