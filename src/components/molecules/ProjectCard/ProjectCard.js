@@ -54,7 +54,7 @@ const RemoveItem = styled.a`
   }
 `;
 
-const ProjectCard = ({ id, name, type, maxTime, goalTime, currentTime, logo, removeItem }) => (
+const ProjectCard = ({ id, name, type, maxTime, currentTime, goalTime, logo, removeItem }) => (
   <CardWrapper>
     <ProjectLogo>
       <img src={logo} alt="" />

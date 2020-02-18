@@ -6,20 +6,20 @@ import { MDBBtn, MDBInput } from 'mdbreact';
 import { connect } from 'react-redux';
 import FormRadio from "../../atoms/FormRadio/FormRadio";
 import withContext from '../../../hoc/withContext';
-import { addItem as addItemAction} from '../../../actions';
+import { addItem as addItemAction, fetchItems } from '../../../actions';
 import { Select } from '../../atoms/Select/Select';
 
 const types = {
   projects: 'projects',
   tasks: 'tasks',
   users: 'users'
-}
+};
 
 const descriptions = {
   projects: 'super project',
   tasks: 'difficult task',
   users: 'smart user'
-}
+};
 
 const RadioWrapper = styled.div`
 display: flex;
@@ -52,6 +52,12 @@ class FormAddItem extends React.Component {
     }
   }
 
+    componentDidMount() {
+        const { fetchProjects, fetchUsers } = this.props;
+        fetchUsers();
+        fetchProjects();
+    };
+
 
   handleRadioButtonChange = (type) => {
     this.setState({
@@ -83,7 +89,6 @@ class FormAddItem extends React.Component {
         userID: ''
       }}
       onSubmit={(values) => {
-        console.log(values);
         addItem(typeAddItem,values)
       }}>
         {({
@@ -117,7 +122,6 @@ class FormAddItem extends React.Component {
             </div>
             <Form>
               <StyledInput
-                // onChange={this.handleInputChange}
                 type="text"
                 name="name"
                 onChange={handleChange}
@@ -128,7 +132,6 @@ class FormAddItem extends React.Component {
               {typeAddItem === types.projects ?
                 <>
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.logo}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -137,7 +140,6 @@ class FormAddItem extends React.Component {
                     label="Logo"
                   />
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.type}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -146,7 +148,6 @@ class FormAddItem extends React.Component {
                     label="Type"
                   />
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.goalTime}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -155,7 +156,6 @@ class FormAddItem extends React.Component {
                     label="Goal time (hours)" maxLength={4}
                   />
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.maxTime}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -168,7 +168,6 @@ class FormAddItem extends React.Component {
               {typeAddItem === types.tasks ?
                 <>
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.taskTime}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -178,16 +177,16 @@ class FormAddItem extends React.Component {
                   />
                   <div className="md-form">
                       <StyledSelect name="projectID" type="text" onChange={handleChange} value={values.projectID}>
-                            <option hidden="true">Choose Project</option>
-                            {projects.map(({id, name})=>(
+                            <option hidden>Choose Project</option>
+                            {projects.map(({_id: id, name})=>(
                               <option key={id} value={id}>{name}</option>
                             ))}
                       </StyledSelect>
                   </div>
                     <div className="md-form">
                         <StyledSelect name="userID" type="text" onChange={handleChange} value={values.userID}>
-                            <option hidden="true">Choose User</option>
-                            {users.map(({id, name})=>(
+                            <option hidden>Choose User</option>
+                            {users.map(({_id: id, name})=>(
                                 <option key={id} value={id}>{name}</option>
                             ))}
                         </StyledSelect>
@@ -198,7 +197,6 @@ class FormAddItem extends React.Component {
               {typeAddItem === types.users ?
                 <>
                 <StyledInput
-                  // onChange={this.handleInputChange}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -207,7 +205,6 @@ class FormAddItem extends React.Component {
                   label="E-mail"
                 />
                   <StyledInput
-                    // onChange={this.handleInputChange}
                     value={values.avatar}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -231,18 +228,40 @@ class FormAddItem extends React.Component {
 }
 
 FormAddItem.propTypes = {
-  pageContext: PropTypes.oneOf(['projects','tasks','users']),
-  addItem: PropTypes.func.isRequired,
-  projects: PropTypes.instanceOf(Array).isRequired,
-  users: PropTypes.instanceOf(Array).isRequired
+    pageContext: PropTypes.oneOf(['projects','tasks','users']),
+    addItem: PropTypes.func.isRequired,
+    fetchProjects: PropTypes.func.isRequired,
+    fetchUsers: PropTypes.func.isRequired,
+    projects: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            maxTime: PropTypes.number.isRequired,
+            goalTime: PropTypes.number.isRequired,
+            logo: PropTypes.string.isRequired,
+        }),
+    ),
+    users: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
+            avatar: PropTypes.string.isRequired
+        }),
+    ),
 };
 
 FormAddItem.defaultProps = {
-  pageContext: 'projects'
+    pageContext: 'projects',
+    projects: [],
+    users: []
 };
 
 const mapDispatchToProps = dispatch => ({
-  addItem: (itemType, id) => dispatch(addItemAction(itemType, id))
+    fetchProjects: () => dispatch(fetchItems('projects')),
+    fetchUsers: () => dispatch(fetchItems('users')),
+    addItem: (itemType, itemContent) => dispatch(addItemAction(itemType, itemContent))
 });
 
 const mapStateToProps = state => {
