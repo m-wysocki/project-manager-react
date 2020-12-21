@@ -29,13 +29,6 @@ export const removeItem = (itemType, id) => (dispatch) => {
             console.log(err);
             dispatch({ type: REMOVE_FAILURE });
         });
-    // return {
-    //     type: 'REMOVE_ITEM',
-    //     payload: {
-    //         itemType,
-    //         id
-    //     }
-    // };
 };
 
 export const addItem = (itemType, itemContent) => (dispatch) => {

@@ -7,6 +7,26 @@ import MenuItem from './MenuItem';
 
 
 storiesOf('MenuItem', module)
-  .add('Projects', () => <MenuItem className="active"><img src={projectsIcon} alt=""/>Projects</MenuItem>)
-  .add('Tasks', () => <MenuItem><img src={tasksIcon} alt=""/>Tasks</MenuItem>)
-  .add('Users', () => <MenuItem><img src={usersIcon} alt=""/>Users</MenuItem>);
+    .add(
+        'Projects',
+        () =>
+            <MenuItem className="active">
+                <img src={projectsIcon} alt=""/>
+                Projects
+            </MenuItem>
+    )
+    .add('Tasks',
+        () =>
+            <MenuItem>
+                <img src={tasksIcon} alt=""/>
+                Tasks
+            </MenuItem>
+    )
+    .add(
+        'Users',
+        () =>
+            <MenuItem>
+                <img src={usersIcon} alt=""/>
+                Users
+            </MenuItem>
+    );
